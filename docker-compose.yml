@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  comfyui-mcp-server:
+    image: comfyui-mcp-server:latest
+    ports:
+      - "18060:18060"
+    environment:
+      - COMFY_CLOUD_API=https://cloud.comfy.org
+      - COMFY_CLOUD_API_KEY=comfyui-xxx
+    volumes:
+      - ./output:/app/output
+      - ./workflows:/app/workflows
+    command: [ "python", "server.py" ]
+    networks:
+      - nanobot-net
+
+# 网络定义
+networks:
+  nanobot-net:
+    driver: bridge
